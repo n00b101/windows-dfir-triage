@@ -23,7 +23,7 @@ Lightweight PowerShell-based DFIR triage script for rapid incident response coll
 ## ⚙️ Requirements
 
 - Windows 10 / 11 / Server
-- PowerShell 5+
+- PowerShell 5+ or 7
 - Administrator privileges
 
 Optional:
