@@ -1,4 +1,4 @@
-# 🚨 Windows DFIR Triage Script v1.0
+# 🚨 Windows DFIR Triage Script v1.1
 
 Lightweight PowerShell-based DFIR triage script for rapid incident response collection.
 
@@ -19,7 +19,7 @@ Unauthorized use may violate applicable laws and regulations.
 ## 🚀 Quick Start
 
 ```powershell
-git clone https://github.com/n00b101/windows-dfir-triage.git
+git clone https://github.com/alwinuxlabs/windows-dfir-triage.git
 cd windows-dfir-triage
 powershell -ExecutionPolicy Bypass -File .\dfir-triage.ps1
 ```
@@ -35,17 +35,25 @@ powershell -ExecutionPolicy Bypass -File .\dfir-triage.ps1
 * Process listing and process tree
 * Network artifacts:
 
-  * netstat
+  * netstat (including established connections)
   * ARP table
   * DNS cache
+  * Hosts file
 * Persistence checks:
 
   * Run keys
   * Services
   * Scheduled tasks
+  * Startup folders
 * WMI persistence detection
 * Installed software inventory
+* Event log collection (Security, System, PowerShell)
+* PowerShell command history collection
+* User activity (recent files)
+* Environment variables collection
 * Full `C:\` file listing
+* Output hashing (SHA256)
+* Automatic ZIP packaging of results
 * Optional osquery integration
 
 ---
@@ -76,6 +84,11 @@ Each file includes:
 * Timestamp
 * Raw command output
 
+Additionally:
+
+* 📦 A compressed archive (`.zip`) of the output is created
+* 🔐 SHA256 hashes of collected files are generated for integrity
+
 ---
 
 ## 📄 Collected Artifacts
@@ -86,25 +99,37 @@ Each file includes:
 * `hostname.txt`
 * `whoami_all.txt`
 * `logical_disks.txt`
+* `env_variables.txt`
+
+---
 
 ### 👤 User Enumeration
 
 * `net_user.txt`
 * `local_admins.txt`
 * `query_user.txt`
+* `logon_sessions.txt`
+
+---
 
 ### ⚙️ Process Collection
 
 * `tasklist_verbose.txt`
 * `process_tree.txt`
 
+---
+
 ### 🌐 Network Information
 
 * `netstat_ano.txt`
+* `netstat_established.txt`
 * `ipconfig_all.txt`
 * `arp_table.txt`
 * `route_table.txt`
 * `dns_cache.txt`
+* `hosts_file.txt`
+
+---
 
 ### 🔐 Persistence Checks
 
@@ -113,6 +138,10 @@ Each file includes:
 * `runkey_hklm.txt`
 * `runkey_hkcu.txt`
 * `startup_items.txt`
+* `startup_folder_allusers.txt`
+* `startup_folder_currentuser.txt`
+
+---
 
 ### 🧠 WMI Persistence
 
@@ -123,13 +152,47 @@ Each file includes:
 * `wmi_event_consumers_ps.txt`
 * `wmi_bindings_ps.txt`
 
+---
+
+### 📜 Event Logs
+
+* `eventlog_security.txt`
+* `eventlog_system.txt`
+* `eventlog_powershell_operational.txt`
+
+---
+
+### 🧪 User Activity
+
+* `powershell_history.txt`
+* `recent_files.txt`
+
+---
+
 ### 📦 Installed Software
 
 * `installed_software.txt`
 
+---
+
 ### 📁 File System
 
 * `file_listing_C.csv`
+  *(Includes: FullName, Length, CreationTime, LastWriteTime, LastAccessTime)*
+
+---
+
+### 🔐 Integrity
+
+* `hashes.txt` (SHA256 hashes of collected files)
+
+---
+
+### 📦 Archive
+
+* `DFIR_Output_YYYY-MM-DD_HH-MM-SS.zip`
+
+---
 
 ### 🧪 Optional (if osquery is installed)
 
@@ -145,6 +208,7 @@ Each file includes:
 * Ensure sufficient disk space before execution
 * Designed for **triage collection**, not full forensic imaging
 * Some commands may require specific system permissions
+* Event logs are limited to recent entries for performance
 
 ---
 
@@ -159,11 +223,13 @@ Each file includes:
 
 ## 🔍 Investigation Tips (DFIR Insight)
 
-* Review `netstat_ano.txt` for suspicious outbound connections
+* Review `netstat_established.txt` for suspicious outbound connections
 * Correlate `process_tree.txt` with unusual parent-child relationships
-* Inspect `runkey_*` and `scheduled_tasks.txt` for persistence
+* Inspect `runkey_*`, `startup_*`, and `scheduled_tasks.txt` for persistence
 * Analyze WMI artifacts for stealth persistence mechanisms
-* Check `dns_cache.txt` for recently resolved suspicious domains
+* Check `dns_cache.txt` and `hosts_file.txt` for suspicious domains
+* Review `powershell_history.txt` for attacker commands
+* Investigate `eventlog_security.txt` for login activity
 
 ---
 
