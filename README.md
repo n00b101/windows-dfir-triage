@@ -2,15 +2,29 @@
 
 Lightweight PowerShell-based DFIR triage script for rapid incident response collection.
 
-**Author:** Alwin Espiritu (alwinux)
-**Date:** 2026-04-10
+* **Author:** Alwin Espiritu (`alwinux`)
+* **Date:** 2026-04-10
+
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
 ## ⚠️ Disclaimer
 
-This tool is intended for **authorized security testing and incident response only**.
-Unauthorized use may violate local laws and regulations.
+This tool is intended for **authorized digital forensic and incident response activities only**.
+Unauthorized use may violate applicable laws and regulations.
+
+---
+
+## 🚀 Quick Start
+
+```powershell
+git clone https://github.com/n00b101/windows-dfir-triage.git
+cd windows-dfir-triage
+powershell -ExecutionPolicy Bypass -File .\dfir-triage.ps1
+```
+
+> 🔐 The script will automatically prompt for **Administrator privileges** if not already elevated.
 
 ---
 
@@ -45,28 +59,6 @@ Unauthorized use may violate local laws and regulations.
 **Optional:**
 
 * osquery installed and added to PATH
-
----
-
-## 🚀 How to Use
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/n00b101/windows-dfir-triage.git
-```
-
-2. Navigate to the folder:
-
-```bash
-cd windows-dfir-triage
-```
-
-3. Run the script as Administrator:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\dfir-triage.ps1
-```
 
 ---
 
@@ -146,12 +138,13 @@ Each file includes:
 
 ---
 
-## ⚠️ Notes
+## ⚠️ Notes & Limitations
 
-* Full `C:\` file listing may take significant time depending on disk size
+* Full `C:\` recursive listing may take significant time depending on disk size
+* Output files can be large (especially file listings)
 * Ensure sufficient disk space before execution
-* Script is intended for **triage collection**, not full forensic imaging
-* Some commands may generate large output files
+* Designed for **triage collection**, not full forensic imaging
+* Some commands may require specific system permissions
 
 ---
 
@@ -161,6 +154,16 @@ Each file includes:
 * Threat Hunting
 * Live Response Collection
 * Malware Investigations
+
+---
+
+## 🔍 Investigation Tips (DFIR Insight)
+
+* Review `netstat_ano.txt` for suspicious outbound connections
+* Correlate `process_tree.txt` with unusual parent-child relationships
+* Inspect `runkey_*` and `scheduled_tasks.txt` for persistence
+* Analyze WMI artifacts for stealth persistence mechanisms
+* Check `dns_cache.txt` for recently resolved suspicious domains
 
 ---
 
