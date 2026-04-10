@@ -1,6 +1,8 @@
 # windows-dfir-triage v1.0
 Lightweight Windows DFIR triage script for rapid incident response collection
-#Author: Alwin Espiritu | alwinux
+#Author: alwinux | Alwin Espiritu | 2026-04-10
+## ⚠️ Disclaimer
+This tool is intended for authorized security testing and incident response only.
 
 # 🚨 Windows DFIR Triage Script
 
@@ -42,3 +44,27 @@ Optional:
 3. Run the script as Administrator:
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\dfir-triage.ps1
+
+📂 Output
+The script will generate a timestamped folder:
+DFIR_Output_YYYY-MM-DD_HH-MM-SS
+
+Inside:
+
+systeminfo.txt
+netstat_ano.txt
+process_tree.txt
+file_listing_C.csv
+
+⚠️ Notes
+The C:\ full file listing may take time
+Ensure sufficient disk space
+Designed for triage, not full forensic imaging
+
+🧠 Use Cases
+Incident Response (IR)
+Threat Hunting
+Live Response Collection
+Malware Investigations
+
+
